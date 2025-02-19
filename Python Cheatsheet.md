@@ -4,11 +4,13 @@
 1. [Data Types](#data-types)
     - [Lists](#lists)
     -[Tuples](#tuples)
-2. [OOP Concepts](#oop-concepts)
-    - [Encapsulation](#encapsulation)
-    - [Abstraction](#abstraction)
-    - [Inheritance](#inheritance)
-    - [Polymorphism](#polymorphism)
+2. [Object Oriented Programming (OOP)](#object-oriented-programming)
+    - [What is Object Oriented Programming?](#what-is-object-oriented-programming)
+    - [Concepts](#oop-concepts)
+        - [Encapsulation](#encapsulation)
+        - [Abstraction](#abstraction)
+        - [Inheritance](#inheritance)
+        - [Polymorphism](#polymorphism)
 3. [Git Repositories](#git-repositories)
     - [git init](#git-init)
     - [git status](#git-status)
@@ -24,6 +26,7 @@
 4. [Built-in Functions](#built-in-functions)
     - [map()](#mapfunction-iterable-iterables)
     - [filter()](#filterfunction-iterable)
+5. [Functional Programming](#functional-programming)
 
 # Data Types
 ### This section will go over the different ways to create data structures within Python and various tips and tricks involved with them
@@ -88,9 +91,11 @@ main()
     ```
 
 
-# OOP Concepts
+# Object Oriented Programming
+## What is Object Oriented Programming?
+1. A programming style (see: paradigm) that organizes software design around "objects," which are entities that contain both data (attributes) and the functions (methods) that operate on that data
 
-## Encapsulation vs. Abstraction
+## OOP Concepts
 
 ### Encapsulation
 1. Encapsulation is about hiding internal state. It focuses on tucking implementation details away so no one depends on them.
@@ -255,3 +260,55 @@ my_func = lambda x: x.isdigit()
 my_list = list(filter(my_func, my_list))
 # Returns [2, 4]
 ```
+
+# Functional Programming
+## What is Functional Programming?
+1. Functional programming is a style (see: paradigm) of programming where we compose functions instead of mutating state (updating the value of variables).
+2. More focused on declaring *what* you want to happen rather than *how* you want it to happen
+    - This is different from Imperative Code in the sense that you're declaring both **what and how**
+    ```python
+    # Example of Imperative Code
+    car = create_car()
+    car.add_gas(10)
+    car.clean_windows()
+
+    # Example of Functional Code
+    return clean_windows(add_gas(create_car()))
+    ```
+    - Important distinction between the two of these is that in the **Functional** example, we are never changing the value of the `car` variable.
+    - We simply compose functions that return new values, with the outermost function, `clean_windows` in this case, returning the final result.
+
+## Goals of Functional Programming
+1. Make data [immutable](#immutable); once a value is created, it *cannot be changed*
+2. Aim to be declarative; we prefer to declare *what* we want the computer to do, rather than muck around with the details of *how* to do it
+
+## Functional and OOP Overlap
+1. Three main concepts of programming overlap within both Functional Programming and Object Oriented Programming
+    - [Encapsulation](#encapsulation)
+    - [Abstraction](#abstraction)
+    - [Polymorphism](#polymorphism)
+
+# Excess Definitions
+#### Immutable
+- In [Object Oriented Programming](#object-oriented-programming) (OOP) and [Functional Programming](#functional-programming), an immutable object (unchangeable object) is an object whose state cannot be modified after it is created.
+#### Encapsulation
+- The practice of bundling data (variables) with the methods that operate on that data into a single unit, typically a class, thereby restricting direct access to the data and allowing controlled manipulation through designated methods, essentially hiding the internal implementation details of an object while providing a public interface to interact with it
+#### Abstraction
+- The process of simplifying complex systems to make them easier to use. The main goal is to handle complexity by hiding unnecessary details from the user. That enables the user to implement more complex logic on top of the provided abstraction without understanding or even thinking about all the hidden complexity.
+#### Polymorphism
+- Polymorphism in programming is the ability to use the same interface for different types of data or objects. You can access objects of different types through the same interface. Each type can provide its own independent implementation of this interface.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
