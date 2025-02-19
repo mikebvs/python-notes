@@ -19,6 +19,8 @@
     - [git log](#git-log)
     - [git merge](#git-merge)
     - [Rebase vs Merge](rebase-vs-merge)
+    - [git push](#git-push)
+    - [git remote](#git-remote)
 4. [Built-in Functions](#built-in-functions)
     - [map()](#mapfunction-iterable-iterables)
     - [filter()](#filterfunction-iterable)
@@ -225,6 +227,11 @@ for creature in [Creature(), Dragon(), Kraken()]:
 1. Manages a set of tracked repositories
 2. Add a remote named `<name>` for the repository at `<URL>`. Able to set a remote origin repository.
  - `git remote origin <URL>` is how we can initialize our project to reference a Github Repository and then stage and commit changes to it.
+## `git push`
+1. This is the command we use once we have staged and committed changes to a branch. We can then push them to a remote repository to update it in our hosted version control.
+2. `git push <repository> <src>` is how we would push our changes made to our remote repository.
+    - `<repository>` would be the defined remote, such as origin.
+    - `<src>` would be the name of the branch we would like to push to said remote, such as main, or a feature branch.
 
 # Built-in Functions
 ## `map(function, iterable, *iterables)`
