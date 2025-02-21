@@ -27,6 +27,25 @@
     - [map()](#mapfunction-iterable-iterables)
     - [filter()](#filterfunction-iterable)
 5. [Functional Programming](#functional-programming)
+    - [What is Functional Programming?](#what-is-functional-programming)
+    - [Goals of Functional Programming](#goals-of-functional-programming)
+    - [Functional and OOP Overlap](#functional-and-oop-overlap)
+    - [Pure Functions](#pure-functions)
+    - [Side Effects](#side-effects)
+        - [I/O](#io)
+6. [Markdown/HTML Cheatsheet](#markdownhtml-cheatsheet)
+    - [Markdown to HTML Conversions](#markdown-to-html-conversions)
+        1. [Headings](#headings)
+        2. [Paragraphs](#paragraphs)
+        3. [Bold Text](#bold-text)
+        4. [Italics](#italics)
+        5. [Links](#links)
+        6. [Images](#images)
+        7. [Unordered Lists](#unordered-lists)
+        8. [Ordered Lists](#ordered-lists)
+        9. [Quotes](#quotes)
+        10. [Code](#code)
+99. [Excess Definitons](#excess-definitions)
 
 # Data Types
 ### This section will go over the different ways to create data structures within Python and various tips and tricks involved with them
@@ -287,7 +306,207 @@ my_list = list(filter(my_func, my_list))
     - [Encapsulation](#encapsulation)
     - [Abstraction](#abstraction)
     - [Polymorphism](#polymorphism)
+2. The concept that **DOES NOT** overlap between the two is [Inheritance](#inheritance). This is exclusively an Object Oriented Programming concept. It is not seen in Functional Programming due to the mutable classes that come along with it
 
+## Pure Functions
+1. Pure functions don't do anything with anything that exists outside of their scope.
+    - An impure function might access something like a global variable, whereas a pure function would define that value it requires within it's definiton. Example:
+    ```python
+    # Pure Function Example
+    def find_max(nums):
+    max_val = float("-inf")
+    for num in nums:
+        if max_val < num:
+            max_val = num
+    return max_val
+
+    # Impure Function Example
+    global_max = float("-inf")
+
+    def find_max(nums):
+        global global_max
+        for num in nums:
+            if global_max < num:
+                global_max = num
+    ```
+2. As stated, Pure functions should not modify anything outside it's scope, implying that any values that are inherently passed via reference (Lists, Dictionaries, Sets) must not be altered within the function
+    - A pure function would recreate this value that was passed in by doing something similar to the following:
+    ```python
+    def add_item_to_list(original_list, new_item):
+        new_list = original_list.copy() # Preserves the state of the original_list that was passed into the function
+        new_list.append(new_item) # Edits the new_list we created within the function definition
+        return new_list
+    ```
+    - You can recreate the value passed via reference by iterating through it and reading its values, or simply use something like `.copy()` if it's available for the data type being used
+3. Always returns the same values given the same input
+4. Running them causes no [side effects](#side-effects)
+5. Pure Functions do not perform any I/O operations such as reading from disk, accessing the internet, or writing to the console
+6. Pure Functions are always Referntially Transparent
+    - Referential Transparency is a function call can be replaced by its would-be return value because it's the same every time
+    - Referentially transparent functions can be safely memoized. For example `add(2, 3)` can be smartly replaced by the value `5` 
+## Side Effects
+Side effects are actions that are performed within a function that effect values outside of it's scope. In the example below we can see the function is editing the global variable `y` that is set to `5`, but following the function call, `y` has been updated due to the function:
+```python
+# Side Effect example
+y = 5
+def add_to_y(x):
+    global y
+    y += x
+
+add_to_y(3)
+# y = 8
+```
+
+### I/O
+1. I/O stands for Input/Output. This refers to anything that interacts with the "outside world", which refers to anything that is not stored within our application's memory (like variables)
+    - All I/O is a form of side effects, this includes the following:
+        - Reading from or writing to a file on the harddrive
+        - Accessing the Internet
+        - Reading from or writing to a database
+        - Printing to the console
+2. I/O is considered *dirty but necessary* in Functional Programming
+    - There should be a clear place in your project for I/O to take place, this may be an Init step or a Cleanup step. Your program might take the following steps to keep this clean:
+        1. Read a file from the harddrive as the program starts
+        2. Run a handful of Pure Functions to analyze the data
+        3. Write the results of the alaysis to a file on the harddrive at the end
+### No-Op
+1. If a function doesn't return anything, it's probably impure. If it doesn't return anything, the only reason for it to exist is to perform a side effect. However, if it doesn't return anything, and doesn't perform a side effect, it *does nothing*, it's a No-Op
+```python
+# No-Op example
+def square(x):
+    x * x
+```
+# Markdown/HTML Cheatsheet
+## Markdown to HTML Conversions
+### Headings:
+1. Markdown
+```md
+# Heading 1
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6
+```
+2. HTML
+```html 
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+```
+### Paragraphs
+1. Markdown
+```md
+This is a paragraph of text.
+```
+2. HTML
+```html
+<p>This is a paragraph of text.</p>
+```
+### Bold Text
+1. Markdown
+```md
+This is a **bold** word. (or __bold__)
+```
+2. HTML
+```html
+<p>This is a <b>bold</b> word.</p>
+```
+### Italics
+1. Markdown
+```md
+This is an *italic* word. (or _italic_)
+```
+2. HTML
+```html
+<p>This is an <i>italic</i> word.</p>
+```
+### Links
+1. Markdown
+```md
+This is a paragraph with a [link](https://www.google.com).
+```
+2. HTML
+```html
+This is a paragraph with a <a href="https://www.google.com">link</a>.
+```
+### Images
+1. Markdown
+```md
+![alt text for image](url/of/image.jpg)
+```
+2. HTML
+```html
+<img src="url/of/image.jpg" alt="Description of image">
+```
+### Unordered Lists
+1. Markdown
+```md
+* Item 1
+* Item 2
+* Item 3
+```
+2. HTML
+```html
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+```
+### Ordered Lists
+1. Markdown
+```md
+1. Item 1
+2. Item 2
+3. Item 3
+```
+2. HTML
+```html
+<ol>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ol>
+```
+### Quotes
+1. Markdown
+> This is a quote.
+2. HTML
+```html
+<blockquote>
+    This is a quote.
+</blockquote>
+```
+### Code
+1. Markdown
+
+~~~md
+```<language>
+This is a code block
+```
+~~~
+- Python Example:
+    ~~~
+    ```python
+    int1 = 2
+    int2 = 4
+    print(int1+int2)
+    # prints 6
+    ```
+    ~~~
+2. HTML
+```html
+<code>This is code</code>
+```
 # Excess Definitions
 #### Immutable
 - In [Object Oriented Programming](#object-oriented-programming) (OOP) and [Functional Programming](#functional-programming), an immutable object (unchangeable object) is an object whose state cannot be modified after it is created.
@@ -297,7 +516,8 @@ my_list = list(filter(my_func, my_list))
 - The process of simplifying complex systems to make them easier to use. The main goal is to handle complexity by hiding unnecessary details from the user. That enables the user to implement more complex logic on top of the provided abstraction without understanding or even thinking about all the hidden complexity.
 #### Polymorphism
 - Polymorphism in programming is the ability to use the same interface for different types of data or objects. You can access objects of different types through the same interface. Each type can provide its own independent implementation of this interface.
-
+#### No-Op
+- If a function doesn't return anything, it's probably impure. If it doesn't return anything, the only reason for it to exist is to perform a side effect. However, if it doesn't return anything, and doesn't perform a side effect, it *does nothing*, it's a No-Op
 
 
 
